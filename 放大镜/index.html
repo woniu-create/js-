@@ -1,0 +1,98 @@
+<!-- /*知识点，需熟悉下面属性及含义：
+
+offsetLeft           //获取元素相对左侧的距离 （计算是从最左侧边框外开始）
+
+offsetTop           //获取元素相对顶部的距离 （计算是从最顶部边框外开始）
+
+offsetWidth       //获取元素宽度   （border + padding + margin）
+
+offsetHeight     //获取元素高度     （border +padding + margin）
+
+clientLeft         //测量的是元素左侧边框的宽度
+
+clientHeight    //测量的是元素的上边框的宽度
+
+clientWidht     //获取元素的宽度  不带边框（padding + margin）
+
+clientHeight    //获取元素的高度  不带边框  （padding + margin）
+
+*/ -->
+<!DOCTYPE html>
+   <html>
+   <head>
+       <title>测试放大镜</title>
+       <style type="text/css">
+           *{
+               margin: 0;
+               padding: 0;
+           }
+           #small_Box{
+               width: 300px;
+               height: 300px;
+             position: relative;
+             margin: 50px auto;
+         }
+         #small_Box img{
+             width: 100%;
+             height: 100%;
+         }
+     </style>
+ </head>
+ <body>
+     <div id="small_Box">
+         <img src="img/5.jpg">
+     </div>
+     <script type="text/javascript">
+         window.onload = function() {
+           var span = document.createElement("span");
+             var box = document.getElementById("small_Box");
+             var img = document.createElement("img");
+             var boxWidth = box.clientWidth;
+             var boxHeight = box.clientHeight;
+             var scale = 2; 
+             span.style.position = "absolute";
+             span.style.width = boxWidth / scale+"px";
+             span.style.height = boxHeight / scale+"px";
+             span.style.display = 'none';
+             span.style.overflow = 'hidden';
+             span.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+             span.style.cursor = 'pointer';
+           box.appendChild(span);
+             img.setAttribute("src", "img/5.jpg");
+             img.style.width = scale*boxWidth + "px";
+             img.style.height = scale*boxHeight + "px";
+             box.onmouseover = function(e){
+                 span.style.display = "block";
+             }
+             box.onmousemove = function(e){
+                 e = e || window.event;
+                 var x = e.clientX - span.clientWidth / scale - this.offsetLeft;
+                 var y = e.clientY - span.clientHeight / scale - this.offsetTop;
+                 if (x <= 0){
+                     x = 0
+               }
+                 if (x >= box.clientWidth - span.clientWidth){
+                     x = box.clientWidth - span.clientWidth
+                 }
+                 if (y <= 0){
+                     y = 0
+                 }
+                 if (y >= box.clientHeight - span.clientHeight){
+                     y = box.clientHeight - span.clientHeight
+                 }
+                 span.style.left = x + "px";
+                 span.style.top = y + "px";
+                 
+                 img.style.marginLeft = -1 * span.offsetLeft * scale - x + "px";
+                 img.style.marginTop = -1 * span.offsetTop * scale - y + "px";
+                 span.appendChild(img);
+           }
+ 
+             box.onmouseout = function(e){
+                 span.style.display = "none";
+             }
+         }
+     </script>
+ </body>
+</html>
+ -->

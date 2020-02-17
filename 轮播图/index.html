@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            margin: 0 auto;
+            width: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        ul {
+            width: 1200px;
+            /* height: 300px; */
+            position: relative;
+            transition: 0.3s;
+        }
+
+        ul li {
+            float: left;
+            list-style: none;
+        }
+
+        ul li img {
+            /* position: absolute; */
+            width: 300px;
+            height: 300px;
+        }
+
+        ol li {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #000;
+            margin: 2px;
+            float: left;
+            /* display: inline; */
+            /* position:relative; */
+            top: 20px;
+            cursor: pointer;
+            transform: 0.3s;
+        }
+
+        ol {
+            list-style: none;
+        }
+
+        .active {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: green;
+        }
+
+        .pre {
+            width: 0px;
+            height: 0px;
+            border: 30px solid;
+            /* border-width: 10px;
+            border-style: solid; */
+            border-color: transparent green transparent transparent;
+            position: absolute;
+            left: 0%;
+            bottom: 40%;
+            opacity: .5;
+        }
+
+        .pre:hover {
+            opacity: 1;
+        }
+
+        .next {
+            width: 0;
+            height: 0;
+            border: 30px solid;
+            border-color: transparent transparent transparent green;
+            position: absolute;
+            right: 2%;
+            bottom: 40%;
+            opacity: .5;
+        }
+
+        .next:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul>
+            <li><img src="./img/rou1.jpg"> </li>
+            <li><img src="./img/rou2.jpg"></li>
+            <li><img src="./img/rou3.jpg"></li>
+            <li><img src="./img/rou4.jpg"></li>
+        </ul>
+
+        <ol>
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            </ul>
+
+            <a href="#" class="pre"></a>
+            <a href="#" class="next"></a>
+    </div>
+    <script>
+        var box = document.getElementById('box')
+        var ul = box.getElementsByTagName('ul')[0]
+
+        var li = box.getElementsByTagName('ol')[0].getElementsByTagName('li')
+        var pre = document.querySelector('.pre')
+        var next = document.querySelector('.next')
+        var n = 0;
+        arr = []
+        //var timer
+        for (var i = 0; i < li.length; i++) {
+            li[i].index = i;
+            li[i].onclick = function () {
+                n = this.index
+                for (var i = 0; i < li.length; i++) {
+                    li[i].className = ''
+                }
+                this.className = 'active'
+                ul.style.left = -300 * this.index + 'px'
+            }
+        }
+        pre.onclick = function () {
+
+            n--;
+            if (n == -1) {
+                n = 3
+            }
+            for (var i = 0; i < li.length; i++) {
+                li[i].className = ''
+            }
+            li[n].className = 'active'
+            ul.style.left = -300 * n + 'px'
+        }
+        next.onclick = function () {
+            n++;
+            for (var i = 0; i < li.length; i++) {
+                li[i].className = ''
+            }
+            li[n].className = 'active'
+            ul.style.left = -300 * n + 'px'
+            if (n == 3) {
+                n = 0
+            }
+        }
+        function auto() {
+            timer = setInterval(function () {
+                n++;
+                for (var i = 0; i < li.length; i++) {
+                    li[i].className = ''
+                }
+                li[n].className = 'active'
+                ul.style.left = -300 * n + 'px'
+                if (n == 3) {
+                    n = -1
+                }
+            }, 2000)
+        }
+        auto()
+        pre.onmouseover = function () {
+            clearInterval(timer)
+        }
+        pre.onmouseout = function () {
+            auto()
+        }
+        next.onmouseover = function () {
+            clearInterval(timer)
+        }
+        next.onmouseout = function () {
+            auto()
+        }
+
+    </script>
+</body>
+
+</html>

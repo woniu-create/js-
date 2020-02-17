@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      *{
+          padding: 0;
+          margin: 0;
+      }
+      html,body{
+          position: relative;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background: radial-gradient(circle,#444,#000,#000);
+      }
+      .letter{
+           /* text-align: center; */
+           width: 30%;
+           height: 400px;
+           font-size: 400px;
+           line-height: 400px;
+           color: lightgreen;
+           text-shadow: 0 0 50px #777;
+           margin-right: -1%;
+           
+      }
+      .tip{
+          color: #fff;
+          font-weight: bold;
+          font-size: 30px;  
+      }
+      .count{
+          color: #369;
+          font-size: 20px;
+      }
+    </style>
+</head>
+<body>
+    <section class="box"></section>
+    <section class="tip">英语字母小测验</section>
+    <section class="letter">A</section>
+    <section class="count">正确:0 错误:0 正确率:0%</section>
+    <script>
+      window.onload=function(){
+            var ok=0;//保存正确个数
+            var no=0;//保存失败个数
+            var nowLetter;//当前字母
+            var letterDom=document.querySelector(".letter")
+            var countDom=document.querySelector(".count")
+            var tipDom=document.querySelector(".tip")   
+          function randomLetter(){
+            //   var number=65+Math.floor((Math.random()*10000)%26);//生成65-90之间的随机数 10000%26=26
+            var number=Math.floor(Math.random()*26+65);
+              var randomLetter=String.fromCharCode(number);//将随机数转换为字母
+              return randomLetter;
+          }
+          function replaceHtml(dom,string){
+              dom.innerHTML=string;
+          }
+          function percently(one,two){
+              var number=parseInt(one)/parseInt(two)
+              return Math.round(number*100)+'%';
+          }
+          (function(){
+              nowLetter=randomLetter();
+              replaceHtml(letterDom,nowLetter)
+          })();
+          document.onkeydown=function(event){
+              var e=window.event||event;
+              var letter=String.fromCharCode(e.keyCode);
+              if(letter!==nowLetter){
+                  no++;
+                  tipDom.style.color="red";
+                  replaceHtml(tipDom,'错误，请再检查一下');
+                  var chance=percently(ok,ok+no)
+                  replaceHtml(countDom,"正确"+ok+"错误"+no+"正确率"+chance);
+                  return false;
+              }else{
+                  ok++;
+                  tipDom.style.color="green"
+                  replaceHtml(tipDom,"正确，再接再厉哦");
+                  nowLetter=randomLetter();
+                  fadeOut(letterDom,500);
+              setTimeout(function(){
+                  replaceHtml(letterDom,nowLetter);
+                  fadeIn(letterDom,500);
+              },500)
+                  replaceHtml(letterDom,nowLetter);
+                  var chance=percently(ok,ok+no)
+                  replaceHtml(countDom,"正确"+ok+"错误"+no+"正确率"+chance);
+              }
+          }
+      }
+      function fadeIn(dom,time){
+              dom.style.opacity===""? dom.style.opacity=0:'';
+              var interval=setInterval(function(){
+                  var opacity=parseFloat(dom.style.opacity);
+                  if(opacity<1){
+                      dom.style.opacity=parseFloat(dom.style.opacity)+0.01;
+                  }else{
+                      clearInterval(interval)
+                  }
+              },time/100);
+          }
+          function fadeOut(dom,time){
+            dom.style.opacity===1? '':dom.style.opacity=1;
+            var interval=setInterval(function(){
+                  var opacity=parseFloat(dom.style.opacity);
+                  if(opacity>0){
+                      dom.style.opacity=parseFloat(dom.style.opacity)-0.01;
+                  }else{
+                      clearInterval(interval)
+                  }
+              },time/100);
+          }
+    </script>
+</body>
+</html>

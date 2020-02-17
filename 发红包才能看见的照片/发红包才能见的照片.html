@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      body{
+          padding: 0;
+          margin: 0;
+      }
+      .blurDiv{
+          position: relative;
+          width:500px;
+          height: 368px;
+          margin:50px auto 0;/*外边距：顶部：50，左右水平居中 底部0*/
+      }
+      .blurDiv .blurImg{
+        width:500px;
+          height: 368px;
+          display: block;
+          filter: blur(20px);/*滤镜：模糊程度20*/
+          -webkit-filter: blur(20px);
+          position: absolute;
+          top: 0;
+          left:0;
+          z-index: 0;
+      }
+      .blurDiv #myCanvas{
+          display: block;
+          margin: 0 auto;
+          z-index: 99;
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
+      .blurDiv .button{
+          display: block;
+          width: 240px;
+          height: 60px;
+          border-radius: 5px;
+          line-height: 60px;
+          text-align: center;
+          position: absolute;
+          top: 105%;
+          font-family: Arial;
+          font-size: 1.5em;
+          color: #fff;
+          text-decoration: none;
+          z-index: 999;
+      }
+      .blurDiv #buttonReset{
+          background-color: #c86814;
+      }
+      .blurDiv #buttonReset:hover{
+          background-color: #ffb151;
+      }
+      .blurDiv #buttonShow{
+          right: 7%;
+          background-color: #ff2eff;
+      }
+      .blurDiv #buttonShow:hover{
+          background-color: #ff596b;
+      }
+    </style>
+</head>
+<body>
+    <div class="blurDiv">
+        <img class="blurImg" id="blurImg" src="./img/rou1.jpg">
+        <canvas id="myCanvas"></canvas>
+        <!-- <a href="javasvript:reset()" class="button" id="buttonReset">想看我吗</a>
+        <a href="javascript:show()" class="button" id="buttonShow">收到红包</a> -->
+
+        <button class="button" id="buttonReset" onclick="reset()">想看我吗</button>
+        <button class="button" id="buttonShow" onclick="show()">收到红包</button>
+    </div>
+    <script>
+      var canvaswidth=500;
+      var canvashight=368;
+      var canvas=document.getElementById('myCanvas');
+      var context=canvas.getContext('2d');
+      canvas.width=canvaswidth;
+      canvas.height=canvashight;
+      var img=new Image();
+      var radius=50
+      img.src="./img/rou4.jpg";
+      img.onload=function(e){
+          initCanvas();
+      }
+      function initCanvas(){
+          Region={
+              x:Math.random()*(canvas.width-2*radius)+radius,
+              y:Math.random()*(canvas.height-2*radius)+radius,
+              r:radius
+          }
+          draw(Region);
+      }
+      function setRegion(Region){
+          context.beginPath();
+          context.arc(Region.x,Region.y,Region.r,0,Math.PI*2,false);//x,y,半径，开始弧度，结束弧度，false顺时针
+          context.clip();
+      }
+      function draw(){
+          context.clearRect(0,0,canvas.width,canvas.height);
+          context.save();
+          setRegion(Region);
+          context.drawImage(img,0,0);
+          context.restore();
+      }
+      function reset(){
+          initCanvas();
+      }
+      function show(){
+        Region.r=3*Math.max(canvas.width,canvas.height);
+          draw(img,Region);
+      }
+    </script>
+</body>
+</html>

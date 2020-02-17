@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+  *{
+      /* padding:0;
+      margin:0; */
+      list-style:none;
+  }
+  /* .body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  } */
+  .main{
+      /* margin:0 auto; */
+      position: absolute;
+      width: 200px;
+      height: 120px; 
+  }
+  ul li{
+      width: 60px;
+      height: 360px;
+      float: left;
+      position: relative;
+  }
+  div.key{
+      position: absolute;
+      float: left;
+      top: 40px;
+      text-align: center;
+      font-size: 16px;
+      background-position: bottom left;
+      background-repeat: repeat-x;
+  }
+ .key:hover{
+     background-color: #cacbd1;
+     cursor: pointer;
+ }
+ div.wkey{
+     width: 60px;
+     height: 360px;
+     color: #666;
+     background-color: #eee;
+     border: 2px solid #999;
+     background-image: url("./img/white.png");
+ }
+ div.bkey{
+     width: 36px;
+     height: 200px;
+     color: #ccc;
+     margin-left: 40px;
+     z-index: 999;
+     background-color: #666;
+     background-image: url("./img/black.jpg");
+ }
+</style>
+<script>
+   window.onload=function(){
+       var divs=document.getElementsByTagName('div')
+       var Audio=document.getElementsByTagName("audio")
+       for(var i=0;i<14;i++){
+           divs[i].index=i;
+           divs[i].onclick=function(){
+               Audio[this.index].load();
+               Audio[this.index].play();
+           }
+       }
+   }
+</script>
+<body>
+   
+    <section class="main">
+        <audio src="./录音/1.m4a"></audio>
+        <audio src="./录音/2.m4a"></audio>
+        <audio src="./录音/3.m4a"></audio>
+        <audio src="./录音/4.m4a"></audio>
+        <audio src="./录音/5.m4a"></audio>
+        <audio src="./录音/6.m4a"></audio>
+        <audio src="./录音/7.m4a"></audio>
+        <audio src="./录音/8.m4a"></audio>
+        <audio src="./录音/9.m4a"></audio>
+        <audio src="./录音/10.m4a"></audio>
+        <audio src="./录音/11.m4a"></audio>
+        <audio src="./录音/12.m4a"></audio>
+        <audio src="./录音/13.m4a"></audio>
+    </section>
+
+    <ul>
+        <li>
+            <div class="key wkey">1</div> 
+            <div class="key bkey">2</div> 
+        </li>
+        <li>
+            <div class="key wkey">3</div> 
+            <div class="key bkey">4</div> 
+        </li>
+        <li><div class="key wkey">5</div></li>
+        <li>
+            <div class="key wkey">6</div> 
+            <div class="key bkey">7</div> 
+        </li>
+        <li>
+            <div class="key wkey">#1</div> 
+            <div class="key bkey">#2</div> 
+        </li>
+        <li>
+            <div class="key wkey">#3</div> 
+            <div class="key bkey">#4</div> 
+        </li>
+        <li>
+            <li><div class="key wkey">#5</div></li>
+            <li class="nobd"><div class="key wkey">#6</div> </li>
+        </li>
+
+    </ul>
+</body>
+</html>
